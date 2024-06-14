@@ -6,6 +6,8 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <mavros_msgs/PositionTarget.h>
+#include <mavros_msgs/WaypointList.h>
+#include <sensor_msgs/Imu.h>
 
 
 using namespace std;
@@ -30,16 +32,20 @@ class LedGroupFlight{
         string name;
         PID pidX, pidY, pidZ, pidpitch, pidroll;
         ros::NodeHandle n;
-        ros::Subscriber leader_position_sub, leader_velocity_sub, local_position_sub;
+        ros::Subscriber leader_position_sub, leader_velocity_sub, local_position_sub, leader_mission_sub, leader_imu_sub;
         ros::Publisher  position_pub;
         geometry_msgs::Vector3 leader_velocity;
-        geometry_msgs::Point leader_position, start_position, local_position;
+        geometry_msgs::Point leader_position, start_position, local_position, mission_position;
         mavros_msgs::PositionTarget setPoint;
-        geometry_msgs::Quaternion local_q;
+        geometry_msgs::Quaternion local_q, leader_q;
+        geometry_msgs::Vector3 leader_accel;
+        geometry_msgs::Point quaternionToAngle(geometry_msgs::Quaternion& q);
     public:
         LedGroupFlight(ros::NodeHandle node, string name, geometry_msgs::Point start_position);
         void local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
         void leader_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg);
+        void leader_imu_callback(const sensor_msgs::Imu::ConstPtr& msg);
+        void mission_callback(const mavros_msgs::WaypointList::ConstPtr& msg);
         void leader_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
         void update(double dt);
         void rosNodeInit();

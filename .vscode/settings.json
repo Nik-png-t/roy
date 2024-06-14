@@ -18,6 +18,7 @@
         "typeinfo": "cpp",
         "cmath": "cpp",
         "bitset": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "complex": "cpp"
     }
 }
