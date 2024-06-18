@@ -119,9 +119,9 @@ void LedGroupFlight::update(double dt){
 	// set angle
     //cout << "Desired angle: " << leader_angle.x*cos(leader_angle.z) + leader_angle.y*sin(leader_angle.z) << endl;
 
-    double k_angle_desired = 5; // 1..3 max=3 | удержание позиции
-    double k_angle_leader = 10; // 1..10 max=15 | реакция
-    double k_velocity_leader = 1; // 1..1.5 max=2 | удержание скорости полета
+    double k_angle_desired = 2; // 1..3 max=3 | удержание позиции
+    double k_angle_leader = 8; // 1..10 max=15 | реакция
+    double k_velocity_leader = 0.8; // 1..1.5 max=2 | удержание скорости полета
 
 	pidpitch.setDesiredPosition((leader_angle.x*cos(leader_angle.z) + leader_angle.y*sin(leader_angle.z))*k_angle_leader + pitch_desired*k_angle_desired);
 	pidroll.setDesiredPosition((-leader_angle.y*cos(leader_angle.z) + leader_angle.x*sin(leader_angle.z))*k_angle_leader + roll_desired*k_angle_desired);
@@ -136,7 +136,8 @@ void LedGroupFlight::update(double dt){
     //cout << velocityX << " " << (leader_velocity.x*cos(yaw) + leader_velocity.y*sin(yaw)) << endl;
 	setPoint.velocity.x = velocityX + leader_velocity.x*k_velocity_leader;
 	setPoint.velocity.y = velocityY + leader_velocity.y*k_velocity_leader;
-    setPoint.velocity.z = velocityZ + leader_velocity.z;
+    setPoint.velocity.z = velocityZ + leader_velocity.z*k_velocity_leader;
+    setPoint.yaw = leader_angle.z;
     position_pub.publish(setPoint);
 
 
@@ -171,8 +172,8 @@ void 	LedGroupFlight::setPointTypeInit()
 									mavros_msgs::PositionTarget::IGNORE_PX +
 									mavros_msgs::PositionTarget::IGNORE_PY +
 									mavros_msgs::PositionTarget::IGNORE_PZ +
-                                    mavros_msgs::PositionTarget::IGNORE_YAW_RATE +
-									mavros_msgs::PositionTarget::IGNORE_YAW;//AF, P, V
+                                    mavros_msgs::PositionTarget::IGNORE_YAW_RATE;
+									//mavros_msgs::PositionTarget::IGNORE_YAW;//AF, P, V
 	// при помощи конфигурации вышеприведенным образом переменной setpointTypeMask
 	// можно настроить управление аппаратом посредством передачи(положения аппарата и углового положения в канале рыскания, )
 

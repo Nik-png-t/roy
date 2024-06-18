@@ -319,13 +319,13 @@ build rosgraph_msgs_generate_messages_py: phony
 
 build cmake_object_order_depends_target_group_controller: phony || CMakeFiles/group_controller.dir
 
-build CMakeFiles/group_controller.dir/src/group_controller.cpp.o: CXX_COMPILER__group_controller_Debug /home/nikita/catkin_ws/src/Roy/src/group_controller.cpp || cmake_object_order_depends_target_group_controller
+build CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o: CXX_COMPILER__group_controller_Debug /home/nikita/catkin_ws/src/Roy/src/group/group_controller.cpp || cmake_object_order_depends_target_group_controller
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
-  DEP_FILE = CMakeFiles/group_controller.dir/src/group_controller.cpp.o.d
+  DEP_FILE = CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o.d
   FLAGS = -g -std=gnu++17
-  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/src/Roy/input_data -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/group_controller.dir
-  OBJECT_FILE_DIR = CMakeFiles/group_controller.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/group_controller.dir/src/group
 
 
 # =============================================================================
@@ -335,13 +335,79 @@ build CMakeFiles/group_controller.dir/src/group_controller.cpp.o: CXX_COMPILER__
 #############################################
 # Link the static library libgroup_controller.a
 
-build libgroup_controller.a: CXX_STATIC_LIBRARY_LINKER__group_controller_Debug CMakeFiles/group_controller.dir/src/group_controller.cpp.o
+build libgroup_controller.a: CXX_STATIC_LIBRARY_LINKER__group_controller_Debug CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/group_controller.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = libgroup_controller.a
   TARGET_PDB = group_controller.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target leader_controller
+
+
+#############################################
+# Order-only phony target for leader_controller
+
+build cmake_object_order_depends_target_leader_controller: phony || CMakeFiles/leader_controller.dir
+
+build CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o: CXX_COMPILER__leader_controller_Debug /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller.cpp || cmake_object_order_depends_target_leader_controller
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
+  DEP_FILE = CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/leader_controller.dir
+  OBJECT_FILE_DIR = CMakeFiles/leader_controller.dir/src/leader
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target leader_controller
+
+
+#############################################
+# Link the static library libleader_controller.a
+
+build libleader_controller.a: CXX_STATIC_LIBRARY_LINKER__leader_controller_Debug CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/leader_controller.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libleader_controller.a
+  TARGET_PDB = leader_controller.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target led_controller
+
+
+#############################################
+# Order-only phony target for led_controller
+
+build cmake_object_order_depends_target_led_controller: phony || CMakeFiles/led_controller.dir
+
+build CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o: CXX_COMPILER__led_controller_Debug /home/nikita/catkin_ws/src/Roy/src/led/led_controller.cpp || cmake_object_order_depends_target_led_controller
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
+  DEP_FILE = CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/led_controller.dir
+  OBJECT_FILE_DIR = CMakeFiles/led_controller.dir/src/led
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target led_controller
+
+
+#############################################
+# Link the static library libled_controller.a
+
+build libled_controller.a: CXX_STATIC_LIBRARY_LINKER__led_controller_Debug CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/led_controller.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libled_controller.a
+  TARGET_PDB = led_controller.a.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target group_controller_node
@@ -352,13 +418,13 @@ build libgroup_controller.a: CXX_STATIC_LIBRARY_LINKER__group_controller_Debug C
 
 build cmake_object_order_depends_target_group_controller_node: phony || cmake_object_order_depends_target_group_controller
 
-build CMakeFiles/group_controller_node.dir/src/group_controller_node.cpp.o: CXX_COMPILER__group_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/group_controller_node.cpp || cmake_object_order_depends_target_group_controller_node
+build CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o: CXX_COMPILER__group_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/group/group_controller_node.cpp || cmake_object_order_depends_target_group_controller_node
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
-  DEP_FILE = CMakeFiles/group_controller_node.dir/src/group_controller_node.cpp.o.d
+  DEP_FILE = CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o.d
   FLAGS = -g -std=gnu++17
-  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/src/Roy/input_data -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/group_controller_node.dir
-  OBJECT_FILE_DIR = CMakeFiles/group_controller_node.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/group_controller_node.dir/src/group
 
 
 # =============================================================================
@@ -368,7 +434,7 @@ build CMakeFiles/group_controller_node.dir/src/group_controller_node.cpp.o: CXX_
 #############################################
 # Link the executable group_controller_node
 
-build group_controller_node: CXX_EXECUTABLE_LINKER__group_controller_node_Debug CMakeFiles/group_controller_node.dir/src/group_controller_node.cpp.o | libgroup_controller.a /opt/ros/noetic/lib/libroscpp.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0 /opt/ros/noetic/lib/librosconsole.so /opt/ros/noetic/lib/librosconsole_log4cxx.so /opt/ros/noetic/lib/librosconsole_backend_interface.so /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0 /opt/ros/noetic/lib/libroscpp_serialization.so /opt/ros/noetic/lib/libxmlrpcpp.so /opt/ros/noetic/lib/librostime.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0 /opt/ros/noetic/lib/libcpp_common.so /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0 /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4 || libgroup_controller.a
+build group_controller_node: CXX_EXECUTABLE_LINKER__group_controller_node_Debug CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o | libgroup_controller.a /opt/ros/noetic/lib/libroscpp.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0 /opt/ros/noetic/lib/librosconsole.so /opt/ros/noetic/lib/librosconsole_log4cxx.so /opt/ros/noetic/lib/librosconsole_backend_interface.so /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0 /opt/ros/noetic/lib/libroscpp_serialization.so /opt/ros/noetic/lib/libxmlrpcpp.so /opt/ros/noetic/lib/librostime.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0 /opt/ros/noetic/lib/libcpp_common.so /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0 /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4 || libgroup_controller.a
   FLAGS = -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = -Wl,-rpath,/opt/ros/noetic/lib  libgroup_controller.a  /opt/ros/noetic/lib/libroscpp.so  -lpthread  /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0  /opt/ros/noetic/lib/librosconsole.so  /opt/ros/noetic/lib/librosconsole_log4cxx.so  /opt/ros/noetic/lib/librosconsole_backend_interface.so  -llog4cxx  /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0  /opt/ros/noetic/lib/libroscpp_serialization.so  /opt/ros/noetic/lib/libxmlrpcpp.so  /opt/ros/noetic/lib/librostime.so  /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0  /opt/ros/noetic/lib/libcpp_common.so  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0  /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
@@ -377,6 +443,76 @@ build group_controller_node: CXX_EXECUTABLE_LINKER__group_controller_node_Debug 
   PRE_LINK = :
   TARGET_FILE = group_controller_node
   TARGET_PDB = group_controller_node.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target leader_controller_node
+
+
+#############################################
+# Order-only phony target for leader_controller_node
+
+build cmake_object_order_depends_target_leader_controller_node: phony || cmake_object_order_depends_target_leader_controller
+
+build CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o: CXX_COMPILER__leader_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller_node.cpp || cmake_object_order_depends_target_leader_controller_node
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
+  DEP_FILE = CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/leader_controller_node.dir
+  OBJECT_FILE_DIR = CMakeFiles/leader_controller_node.dir/src/leader
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target leader_controller_node
+
+
+#############################################
+# Link the executable leader_controller_node
+
+build leader_controller_node: CXX_EXECUTABLE_LINKER__leader_controller_node_Debug CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o | libleader_controller.a /opt/ros/noetic/lib/libroscpp.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0 /opt/ros/noetic/lib/librosconsole.so /opt/ros/noetic/lib/librosconsole_log4cxx.so /opt/ros/noetic/lib/librosconsole_backend_interface.so /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0 /opt/ros/noetic/lib/libroscpp_serialization.so /opt/ros/noetic/lib/libxmlrpcpp.so /opt/ros/noetic/lib/librostime.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0 /opt/ros/noetic/lib/libcpp_common.so /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0 /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4 || libleader_controller.a
+  FLAGS = -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/opt/ros/noetic/lib  libleader_controller.a  /opt/ros/noetic/lib/libroscpp.so  -lpthread  /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0  /opt/ros/noetic/lib/librosconsole.so  /opt/ros/noetic/lib/librosconsole_log4cxx.so  /opt/ros/noetic/lib/librosconsole_backend_interface.so  -llog4cxx  /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0  /opt/ros/noetic/lib/libroscpp_serialization.so  /opt/ros/noetic/lib/libxmlrpcpp.so  /opt/ros/noetic/lib/librostime.so  /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0  /opt/ros/noetic/lib/libcpp_common.so  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0  /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+  OBJECT_DIR = CMakeFiles/leader_controller_node.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = leader_controller_node
+  TARGET_PDB = leader_controller_node.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target led_controller_node
+
+
+#############################################
+# Order-only phony target for led_controller_node
+
+build cmake_object_order_depends_target_led_controller_node: phony || cmake_object_order_depends_target_led_controller
+
+build CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o: CXX_COMPILER__led_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/led/led_controller_node.cpp || cmake_object_order_depends_target_led_controller_node
+  DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
+  DEP_FILE = CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
+  OBJECT_DIR = CMakeFiles/led_controller_node.dir
+  OBJECT_FILE_DIR = CMakeFiles/led_controller_node.dir/src/led
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target led_controller_node
+
+
+#############################################
+# Link the executable led_controller_node
+
+build led_controller_node: CXX_EXECUTABLE_LINKER__led_controller_node_Debug CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o | libled_controller.a /opt/ros/noetic/lib/libroscpp.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0 /opt/ros/noetic/lib/librosconsole.so /opt/ros/noetic/lib/librosconsole_log4cxx.so /opt/ros/noetic/lib/librosconsole_backend_interface.so /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0 /opt/ros/noetic/lib/libroscpp_serialization.so /opt/ros/noetic/lib/libxmlrpcpp.so /opt/ros/noetic/lib/librostime.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0 /opt/ros/noetic/lib/libcpp_common.so /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0 /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4 || libled_controller.a
+  FLAGS = -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/opt/ros/noetic/lib  libled_controller.a  /opt/ros/noetic/lib/libroscpp.so  -lpthread  /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0  /opt/ros/noetic/lib/librosconsole.so  /opt/ros/noetic/lib/librosconsole_log4cxx.so  /opt/ros/noetic/lib/librosconsole_backend_interface.so  -llog4cxx  /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0  /opt/ros/noetic/lib/libroscpp_serialization.so  /opt/ros/noetic/lib/libxmlrpcpp.so  /opt/ros/noetic/lib/librostime.so  /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0  /opt/ros/noetic/lib/libcpp_common.so  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0  /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0  /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+  OBJECT_DIR = CMakeFiles/led_controller_node.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = led_controller_node
+  TARGET_PDB = led_controller_node.dbg
 
 
 #############################################
@@ -865,6 +1001,10 @@ build gtest: phony gtest/lib/libgtestd.so
 
 build gtest_main: phony gtest/lib/libgtest_maind.so
 
+build leader_controller: phony libleader_controller.a
+
+build led_controller: phony libled_controller.a
+
 build libgmock_maind.so: phony gtest/lib/libgmock_maind.so
 
 build libgmockd.so: phony gtest/lib/libgmockd.so
@@ -881,7 +1021,7 @@ build libgtestd.so: phony gtest/lib/libgtestd.so
 #############################################
 # Folder: /home/nikita/catkin_ws/src/Roy/build
 
-build all: phony libgroup_controller.a group_controller_node gtest/all
+build all: phony libgroup_controller.a libleader_controller.a libled_controller.a group_controller_node leader_controller_node led_controller_node gtest/all
 
 # =============================================================================
 

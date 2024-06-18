@@ -22,17 +22,22 @@ find_package(catkin REQUIRED COMPONENTS
 
 include_directories(
   header
-  input_data
   ${catkin_INCLUDE_DIRS}
 )
 
 # добавляем библиотеки для сборки
 # библиотека постройки карты
-add_library(group_controller STATIC src/group_controller.cpp)
+add_library(group_controller STATIC src/group/group_controller.cpp)
+add_library(leader_controller STATIC src/leader/leader_controller.cpp)
+add_library(led_controller STATIC src/led/led_controller.cpp)
 
 # добавляем исполняемые файлы
 # нода для запуска построение карты
-add_executable(group_controller_node src/group_controller_node.cpp)
+add_executable(group_controller_node src/group/group_controller_node.cpp)
+add_executable(leader_controller_node src/leader/leader_controller_node.cpp)
+add_executable(led_controller_node src/led/led_controller_node.cpp)
 
 # libraris link for building a map system
 target_link_libraries(group_controller_node group_controller ${catkin_LIBRARIES})
+target_link_libraries(leader_controller_node leader_controller ${catkin_LIBRARIES})
+target_link_libraries(led_controller_node led_controller ${catkin_LIBRARIES})
