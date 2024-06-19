@@ -7,6 +7,7 @@
 #include <geometry_msgs/TwistStamped.h>
 #include <mavros_msgs/PositionTarget.h>
 #include <mavros_msgs/WaypointList.h>
+#include <mavros_msgs/State.h>
 #include <sensor_msgs/Imu.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,12 +21,14 @@ using namespace std;
 
 class LeaderController{
         ros::NodeHandle n;
-        ros::Subscriber local_position_sub, local_velocity_sub;
+        ros::Subscriber local_position_sub, local_velocity_sub, stateSub;
         geometry_msgs::PoseStamped local_position;
         geometry_msgs::Vector3 local_velocity;
+        mavros_msgs::State	currentState;
         string name;
         // server
         int sockfd, newsockfd, portno;
+        
         char* port;
         socklen_t clilen;
         char buffer[256];
@@ -37,6 +40,7 @@ class LeaderController{
         void update();
         void local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
         void local_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg);
+        void uavStateCallback(const mavros_msgs::State::ConstPtr& msg);
         void start_server();
         void stop_server();
         void publish_message(string message);

@@ -21,6 +21,11 @@ LeaderController::~LeaderController(){
 void LeaderController::rosNodeInit(){
     local_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/uav"+name+"/mavros/local_position/velocity_local/", 10, &LeaderController::local_velocity_callback, this);
     local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/uav"+name+"/mavros/local_position/pose", 10, &LeaderController::local_position_callback, this);
+	stateSub = n.subscribe<mavros_msgs::State>("/uav"+name+ "/mavros/state", 10, &LeaderController::uavStateCallback, this);
+}
+
+void LeaderController::uavStateCallback(const mavros_msgs::State::ConstPtr& msg){
+	currentState = *msg;
 }
 
 void LeaderController::local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
@@ -33,10 +38,10 @@ void LeaderController::local_velocity_callback(const geometry_msgs::TwistStamped
 
 void LeaderController::update(){
     string msg = "";
-    double v[10] = {local_position.pose.position.x, local_position.pose.position.y, local_position.pose.position.z,
+    double v[11] = {currentState.armed, local_position.pose.position.x, local_position.pose.position.y, local_position.pose.position.z,
      local_position.pose.orientation.x, local_position.pose.orientation.y, local_position.pose.orientation.z, local_position.pose.orientation.w,
      local_velocity.x, local_velocity.y, local_velocity.z};
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 11; i++){
         msg += to_string(v[i]) + " ";
     }
     publish_message(msg);
@@ -69,10 +74,14 @@ void LeaderController::stop_server(){
 }
 
 void LeaderController::publish_message(string message){
+    cout << "wait a message" << endl;
     bzero(buffer,256);
-    //int n_ = read(newsockfd,buffer,1023);
-    //if (n_ < 0) error("ERROR reading from socket");
-    int n_ = write(newsockfd, message.data(), message.size());
+    int n_ = read(newsockfd,buffer,255);
+    if (n_ < 0) error("ERROR reading from socket");
+    cout << "send_message" << endl;
+    cout << message << endl;
+    bzero(buffer, 256);
+    n_ = write(newsockfd, message.data(), message.size());
     if (n_ < 0) error("ERROR writing to socket");
 }
 

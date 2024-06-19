@@ -68,9 +68,16 @@ LedController::~LedController(){
     stop_client();
 }
 
+void LedController::uavStateCallback(const mavros_msgs::State::ConstPtr& msg){
+	currentState = *msg;
+}
+
 void LedController::rosNodeInit(){
     local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/uav"+name+ "/mavros/local_position/pose", 1, &LedController::local_position_callback, this);
     position_pub = n.advertise<mavros_msgs::PositionTarget>("/uav"+name+"/mavros/setpoint_raw/local", 1, this);
+    setModeClient = n.serviceClient<mavros_msgs::SetMode>("/uav"+name+ "/mavros/set_mode");
+	arming_client = n.serviceClient<mavros_msgs::CommandBool>("/uav"+name+ "/mavros/cmd/arming");
+	stateSub = n.subscribe<mavros_msgs::State>("/uav"+name+ "/mavros/state", 10, &LedController::uavStateCallback, this);
 }
 
 void LedController::local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
@@ -92,7 +99,6 @@ void LedController::update(){
 	double pitch_desired = pidX.pid(local_position.x, dt);
 	double roll_desired = pidY.pid(local_position.y, dt);
 	double velocityZ = pidZ.pid(local_position.z, dt);
-    cout << leader_position.x << " " << local_position.x << " " << dt << endl;
     // set angle
 	pidpitch.setDesiredPosition((leader_angle.x*cos(leader_angle.z) + leader_angle.y*sin(leader_angle.z))*k_angle_leader + pitch_desired*k_angle_desired);
 	pidroll.setDesiredPosition((-leader_angle.y*cos(leader_angle.z) + leader_angle.x*sin(leader_angle.z))*k_angle_leader + roll_desired*k_angle_desired);
@@ -106,7 +112,6 @@ void LedController::update(){
 	setPoint.velocity.y = velocityY + leader_velocity.y*k_velocity_leader;
     setPoint.velocity.z = velocityZ + leader_velocity.z*k_velocity_leader;
     setPoint.yaw = leader_angle.z;
-    cout << "Velocity: " << setPoint.velocity.x << " " << setPoint.velocity.y << " " << setPoint.velocity.z << endl;
     position_pub.publish(setPoint);
 }
 
@@ -179,21 +184,56 @@ void LedController::stop_client(){
     close(sockfd);
 }
 
+bool LedController::arm(bool cmd){
+    if (cmd){
+        setModeName.request.custom_mode = "OFFBOARD";
+    }
+    else{
+        setModeName.request.custom_mode = "AUTO.LAND";
+    }
+	mavros_msgs::CommandBool arm_cmd;
+    arm_cmd.request.value = cmd;
+	if	(currentState.mode != "OFFBOARD" ){
+        if( setModeClient.call(setModeName) &&
+            setModeName.response.mode_sent){
+            if (cmd)ROS_INFO("Offboard enabled");
+            else ROS_INFO("Auto Land enabled");
+        }
+	}
+    if(arming_client.call(arm_cmd) &&
+        arm_cmd.response.success){
+        
+        if (cmd)ROS_INFO("Vehicle armed");
+        else ROS_INFO("Vehicle disarmed");
+    }
+}
+
+bool LedController::leader_armed(){
+    return leader_is_arm;
+}
+
+bool LedController::local_armed(){
+    return currentState.armed;
+}
+
 void LedController::receive_message(){
-    cout << "take message" << endl;
+    bzero(buffer, 256);
+    string buf = "send message to me";
+    int n = write(sockfd,buf.data(),buf.size());
+    if (n < 0)error("ERROR writing to socket");
     bzero(buffer,256);
-    int n = read(sockfd,buffer,255);
+    //cout << "receive message" << endl;
+    n = read(sockfd,buffer,255);
+    //cout << buffer << endl;
     if (n < 0)error("ERROR reading from socket");
-    string buf = "";
+    buf = "";
     int count = 0;
-    double *v[10] = {&leader_position.x, &leader_position.y, &leader_position.z, 
+    double *v[11] = {&leader_is_arm, &leader_position.x, &leader_position.y, &leader_position.z, 
                     &leader_q.x, &leader_q.y, &leader_q.z, &leader_q.w,
                     &leader_velocity.x, &leader_velocity.y, &leader_velocity.z};
-    for (int i = 0; i < 10;){
+    for (int i = 0; i < 11;){
         if (buffer[count] == ' '){
-            cout << "Buffer: " << buf << endl;
             *v[i] = stod(buf);
-            cout << *v[i] << endl;
             buf = "";
             i++;
         }

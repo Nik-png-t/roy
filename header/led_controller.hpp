@@ -6,6 +6,9 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <mavros_msgs/PositionTarget.h>
+#include <mavros_msgs/State.h>
+#include <mavros_msgs/SetMode.h>
+#include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/WaypointList.h>
 #include <sensor_msgs/Imu.h>
 #include <stdio.h>
@@ -41,9 +44,15 @@ class LedController{
         static const double k_angle_desired, k_angle_leader, k_velocity_leader, pid_positionXY_p, pid_positionXY_i, pid_positionXY_d,
                                 pid_rateXY_p, pid_rateXY_i, pid_rateXY_d, pid_positionZ_p, pid_positionZ_i, pid_positionZ_d;
         string name;
+        double leader_is_arm;
+        mavros_msgs::State   currentState;
         PID pidX, pidY, pidZ, pidpitch, pidroll;
         ros::NodeHandle n;
         ros::Subscriber local_position_sub;
+        ros::Subscriber		stateSub;
+        ros::ServiceClient 	arming_client;
+	ros::ServiceClient	setModeClient;
+	mavros_msgs::SetMode 	setModeName;
         ros::Publisher  position_pub;
         geometry_msgs::Vector3 leader_velocity;
         geometry_msgs::Point leader_position, local_position;
@@ -59,6 +68,10 @@ class LedController{
         LedController(ros::NodeHandle node, string name, char* hostname, char* port);
         ~LedController();
         void local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
+        void uavStateCallback(const mavros_msgs::State::ConstPtr& msg);
+        bool leader_armed();
+        bool local_armed();
+        bool arm(bool cmd);
         void update();
         void rosNodeInit();
         void setPointTypeInit();
