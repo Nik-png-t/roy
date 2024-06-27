@@ -322,7 +322,7 @@ build cmake_object_order_depends_target_group_controller: phony || CMakeFiles/gr
 build CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o: CXX_COMPILER__group_controller_Debug /home/nikita/catkin_ws/src/Roy/src/group/group_controller.cpp || cmake_object_order_depends_target_group_controller
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/group_controller.dir
   OBJECT_FILE_DIR = CMakeFiles/group_controller.dir/src/group
@@ -355,7 +355,7 @@ build cmake_object_order_depends_target_leader_controller: phony || CMakeFiles/l
 build CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o: CXX_COMPILER__leader_controller_Debug /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller.cpp || cmake_object_order_depends_target_leader_controller
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/leader_controller.dir
   OBJECT_FILE_DIR = CMakeFiles/leader_controller.dir/src/leader
@@ -388,7 +388,7 @@ build cmake_object_order_depends_target_led_controller: phony || CMakeFiles/led_
 build CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o: CXX_COMPILER__led_controller_Debug /home/nikita/catkin_ws/src/Roy/src/led/led_controller.cpp || cmake_object_order_depends_target_led_controller
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/led_controller.dir
   OBJECT_FILE_DIR = CMakeFiles/led_controller.dir/src/led
@@ -421,7 +421,7 @@ build cmake_object_order_depends_target_group_controller_node: phony || cmake_ob
 build CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o: CXX_COMPILER__group_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/group/group_controller_node.cpp || cmake_object_order_depends_target_group_controller_node
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/group_controller_node.dir
   OBJECT_FILE_DIR = CMakeFiles/group_controller_node.dir/src/group
@@ -456,7 +456,7 @@ build cmake_object_order_depends_target_leader_controller_node: phony || cmake_o
 build CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o: CXX_COMPILER__leader_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller_node.cpp || cmake_object_order_depends_target_leader_controller_node
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/leader_controller_node.dir
   OBJECT_FILE_DIR = CMakeFiles/leader_controller_node.dir/src/leader
@@ -491,7 +491,7 @@ build cmake_object_order_depends_target_led_controller_node: phony || cmake_obje
 build CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o: CXX_COMPILER__led_controller_node_Debug /home/nikita/catkin_ws/src/Roy/src/led/led_controller_node.cpp || cmake_object_order_depends_target_led_controller_node
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"building_map\"
   DEP_FILE = CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
   OBJECT_DIR = CMakeFiles/led_controller_node.dir
   OBJECT_FILE_DIR = CMakeFiles/led_controller_node.dir/src/led

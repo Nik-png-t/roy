@@ -136,7 +136,7 @@
 					"fragment" : "-g"
 				},
 				{
-					"fragment" : "-std=gnu++17"
+					"fragment" : "-std=gnu++2a"
 				}
 			],
 			"defines" : 
@@ -190,7 +190,7 @@
 				[
 					1
 				],
-				"standard" : "17"
+				"standard" : "20"
 			},
 			"sourceIndexes" : 
 			[

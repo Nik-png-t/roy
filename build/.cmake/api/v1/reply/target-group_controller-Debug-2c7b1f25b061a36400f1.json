@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "libled_controller.a"
+			"path" : "libgroup_controller.a"
 		}
 	],
 	"backtrace" : 1,
@@ -36,7 +36,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 32,
+				"line" : 30,
 				"parent" : 0
 			},
 			{
@@ -130,7 +130,7 @@
 					"fragment" : "-g"
 				},
 				{
-					"fragment" : "-std=gnu++17"
+					"fragment" : "-std=gnu++2a"
 				}
 			],
 			"defines" : 
@@ -184,7 +184,7 @@
 				[
 					1
 				],
-				"standard" : "17"
+				"standard" : "20"
 			},
 			"sourceIndexes" : 
 			[
@@ -192,9 +192,9 @@
 			]
 		}
 	],
-	"id" : "led_controller::@6890427a1f51a3e7e1df",
-	"name" : "led_controller",
-	"nameOnDisk" : "libled_controller.a",
+	"id" : "group_controller::@6890427a1f51a3e7e1df",
+	"name" : "group_controller",
+	"nameOnDisk" : "libgroup_controller.a",
 	"paths" : 
 	{
 		"build" : ".",
@@ -215,7 +215,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/led/led_controller.cpp",
+			"path" : "src/group/group_controller.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],
