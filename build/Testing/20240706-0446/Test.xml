@@ -7,8 +7,8 @@
 	CompilerVersion="9.4.0"
 	OSName="Linux"
 	Hostname="nikita-desktop"
-	OSRelease="5.15.0-107-generic"
-	OSVersion="#117~20.04.1-Ubuntu SMP Tue Apr 30 10:35:57 UTC 2024"
+	OSRelease="5.15.0-113-generic"
+	OSVersion="#123~20.04.1-Ubuntu SMP Wed Jun 12 17:33:13 UTC 2024"
 	OSPlatform="x86_64"
 	Is64Bits="1"
 	VendorString="AuthenticAMD"
@@ -21,14 +21,14 @@
 	TotalVirtualMemory="2047"
 	TotalPhysicalMemory="15910"
 	LogicalProcessorsPerPhysical="2"
-	ProcessorClockFrequency="1882.9"
+	ProcessorClockFrequency="2669.63"
 	>
 	<Testing>
-		<StartDateTime>Jul 06 18:58 +07</StartDateTime>
-		<StartTestTime>1720267121</StartTestTime>
+		<StartDateTime>Jul 06 19:29 +07</StartDateTime>
+		<StartTestTime>1720268943</StartTestTime>
 		<TestList/>
-		<EndDateTime>Jul 06 18:58 +07</EndDateTime>
-		<EndTestTime>1720267121</EndTestTime>
+		<EndDateTime>Jul 06 19:29 +07</EndDateTime>
+		<EndTestTime>1720268943</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>
