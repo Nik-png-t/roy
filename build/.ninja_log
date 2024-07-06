@@ -31,3 +31,7 @@
 13	4000	1720269215047247952	CMakeFiles/led_controller.dir/src/led_controller.cpp.o	5a12d84b5a1f350f
 4001	4052	1720269215107258453	libled_controller.a	b97f3d39cb278826
 4052	4289	1720269215339299058	led_controller_node	1b461b81913bc7cd
+10	3010	1720269381223727671	CMakeFiles/led_controller_node.dir/src/led_controller_node.cpp.o	d422aef78008b1ca
+10	4136	1720269382343606058	CMakeFiles/led_controller.dir/src/led_controller.cpp.o	5a12d84b5a1f350f
+4136	4191	1720269382407599207	libled_controller.a	b97f3d39cb278826
+4191	4433	1720269382647573530	led_controller_node	1b461b81913bc7cd
