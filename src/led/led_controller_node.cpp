@@ -15,9 +15,8 @@ int main(int argc, char *argv[]){
     LedController led = LedController(n, to_string(number_of_drone), argv[1], argv[2]);
 
 	while(ros::ok())
-	{
-        
-        if((ros::Time::now() - last_request > ros::Duration(5.0)) || led.local_armed() != led.leader_armed()){
+	{  
+        if(led.local_armed() != led.leader_armed()){
             led.arm(led.leader_armed());
             last_request = ros::Time::now();
         }

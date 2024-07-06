@@ -10,7 +10,9 @@ void error(const char *msg)
 
 LeaderController::LeaderController(ros::NodeHandle node, string name, char* port) : n(node), name(name), port(port){
     rosNodeInit();
-    start_server();
+    
+    pool.emplace_back(&LeaderController::start_server, this);
+    
     
 }
 
@@ -59,29 +61,40 @@ void LeaderController::start_server(){
     if (bind(sockfd, (struct sockaddr *) &serv_addr,
               sizeof(serv_addr)) < 0) 
               error("ERROR on binding");
-    listen(sockfd,5);
-    clilen = sizeof(cli_addr);
-    newsockfd = accept(sockfd, 
-                 (struct sockaddr *) &cli_addr, 
-                 &clilen);
-    if (newsockfd < 0) 
-          error("ERROR on accept");
+    while (1){
+        listen(sockfd,5);
+        clilen = sizeof(cli_addr);
+        sock_clients.push_back(accept(sockfd, 
+                    (struct sockaddr *) &cli_addr, 
+                    &clilen));
+        if (sock_clients[-1] < 0) 
+            error("ERROR on accept");
+    }
 }
 
 void LeaderController::stop_server(){
-    close(newsockfd);
+    for (int i = 0; i < sock_clients.size(); i++){
+        close(sock_clients[i]);
+    }
     close(sockfd);
 }
 
 void LeaderController::publish_message(string message){
-    cout << "wait a message" << endl;
-    bzero(buffer,256);
-    int n_ = read(newsockfd,buffer,255);
-    if (n_ < 0) error("ERROR reading from socket");
-    cout << "send_message" << endl;
-    cout << message << endl;
-    bzero(buffer, 256);
-    n_ = write(newsockfd, message.data(), message.size());
-    if (n_ < 0) error("ERROR writing to socket");
+    for (int i = 0; i < sock_clients.size(); i++){
+        try{
+            cout << "wait a message" << endl;
+            bzero(buffer,256);
+            int n_ = read(sock_clients[i],buffer,255);
+            if (n_ < 0) throw "ERROR reading from socket";
+            cout << "send_message" << endl;
+            cout << message << endl;
+            bzero(buffer, 256);
+            n_ = write(sock_clients[i], message.data(), message.size());
+            if (n_ < 0) throw "ERROR writing to socket";
+        }
+        catch(const char *error){
+            sock_clients.erase(sock_clients.begin() + i);
+        }
+    }
 }
 

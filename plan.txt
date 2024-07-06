@@ -16,3 +16,8 @@ GOOD
  3. Совместить контроллера и сервер общения
  4. Переделать под ardupilot
  5. Финальная тестировка
+
+4. connection broke repairing
+3. multiple chanel
+1. multiple usage 3, 4 drones
+2. communication drones

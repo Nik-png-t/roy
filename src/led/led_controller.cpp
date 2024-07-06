@@ -1,18 +1,18 @@
 #include <led_controller.hpp>
 
 const double LedController::k_angle_desired = 2; // 1..3 max=3 | удержание позиции
-const double LedController::k_angle_leader = 8; // 1..10 max=15 | реакция
+const double LedController::k_angle_leader = 5; // 1..10 max=15 | реакция
 const double LedController::k_velocity_leader = 0.8; // 1..1.5 max=2 | удержание скорости полета
 
-const double LedController::pid_positionXY_p = 0.95;
+const double LedController::pid_positionXY_p =  0.95;
 const double LedController::pid_positionXY_i = 0;
 const double LedController::pid_positionXY_d = 0;
 
-const double LedController::pid_rateXY_p = 1;
-const double LedController::pid_rateXY_i = 0.003;
-const double LedController::pid_rateXY_d = 0.2;
+const double LedController::pid_rateXY_p = 0.6;
+const double LedController::pid_rateXY_i = 0;
+const double LedController::pid_rateXY_d = 0;
 
-const double LedController::pid_positionZ_p = 6.5;
+const double LedController::pid_positionZ_p = 0.8;
 const double LedController::pid_positionZ_i = 0;
 const double LedController::pid_positionZ_d = 0;
 
@@ -53,6 +53,7 @@ double PID::saturation(double inputVal){
 
 
 LedController::LedController(ros::NodeHandle node, string name, char* hostname, char* port) : n(node), name(name), hostname(hostname), port(port){
+    leader_is_arm = false;
     rosNodeInit();
     start_client();
     cout << "startin server!" << endl;
@@ -61,7 +62,8 @@ LedController::LedController(ros::NodeHandle node, string name, char* hostname, 
 	this->pidY = PID(pid_positionXY_p, pid_positionXY_i, pid_positionXY_d, 1000);  
 	this->pidZ = PID(pid_positionZ_p, pid_positionZ_i, pid_positionZ_d, 1000);  
 	this->pidroll = PID(pid_rateXY_p, pid_rateXY_i, pid_rateXY_d, 100); 
-	this->pidpitch = PID(pid_rateXY_p, pid_rateXY_i, pid_rateXY_d, 100); 
+	this->pidpitch = PID(pid_rateXY_p, pid_rateXY_i, pid_rateXY_d, 100);
+    
 }
 
 LedController::~LedController(){
@@ -78,6 +80,8 @@ void LedController::rosNodeInit(){
     setModeClient = n.serviceClient<mavros_msgs::SetMode>("/uav"+name+ "/mavros/set_mode");
 	arming_client = n.serviceClient<mavros_msgs::CommandBool>("/uav"+name+ "/mavros/cmd/arming");
 	stateSub = n.subscribe<mavros_msgs::State>("/uav"+name+ "/mavros/state", 10, &LedController::uavStateCallback, this);
+    takeoff_client = n.serviceClient<mavros_msgs::CommandTOL>("/uav"+name+ "/mavros/cmd/takeoff");
+    takeoff_position_pub = n.advertise<geometry_msgs::PoseStamped>("/uav"+name+"/mavros/setpoint_position/local", 1, this);
 }
 
 void LedController::local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
@@ -87,6 +91,7 @@ void LedController::local_position_callback(const geometry_msgs::PoseStamped::Co
 
 void LedController::update(){
     double dt = 0.16;
+    cout << "update" << endl;
     receive_message();
     geometry_msgs::Point local_angle = quaternionToAngle(local_q);
     geometry_msgs::Point leader_angle = quaternionToAngle(leader_q);
@@ -108,10 +113,14 @@ void LedController::update(){
 	double velocityY = pidroll.pid(-local_angle.y*cos(local_angle.z) + local_angle.x*sin(local_angle.z), dt);
 
     // set velocity
+    //setPoint.position.x = leader_position.x;
+    //setPoint.position.y = leader_position.y;
+    //setPoint.position.z = leader_position.z;
 	setPoint.velocity.x = velocityX + leader_velocity.x*k_velocity_leader;
 	setPoint.velocity.y = velocityY + leader_velocity.y*k_velocity_leader;
     setPoint.velocity.z = velocityZ + leader_velocity.z*k_velocity_leader;
     setPoint.yaw = leader_angle.z;
+    cout << setPoint.velocity.x <<  " " << setPoint.velocity.y << " " << setPoint.velocity.z << endl;
     position_pub.publish(setPoint);
 }
 
@@ -161,23 +170,36 @@ void 	LedController::setPointTypeInit()
 
 
 void LedController::start_client(){
-    portno = atoi(port);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) 
-        error("ERROR opening socket");
-    server = gethostbyname(hostname);
-    if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
-        exit(0);
+    while (1){
+        try{
+            sleep(1);
+            portno = atoi(port);
+            sockfd = socket(AF_INET, SOCK_STREAM, 0);
+            if (sockfd < 0){
+                ROS_ERROR("ERROR opening socket");
+                continue;
+            }
+            server = gethostbyname(hostname);
+            if (server == NULL) {
+                fprintf(stderr,"ERROR, no such host\n");
+                continue;
+            }
+            bzero((char *) &serv_addr, sizeof(serv_addr));
+            serv_addr.sin_family = AF_INET;
+            bcopy((char *)server->h_addr, 
+                (char *)&serv_addr.sin_addr.s_addr,
+                server->h_length);
+            serv_addr.sin_port = htons(portno);
+            if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) {
+                ROS_ERROR("ERROR connecting");
+                continue;
+                }
+            break;
+        }
+        catch(...){
+            ROS_ERROR("Server connection failed");
+        }
     }
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, 
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(portno);
-    if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
-        error("ERROR connecting");
 }
 
 void LedController::stop_client(){
@@ -186,59 +208,85 @@ void LedController::stop_client(){
 
 bool LedController::arm(bool cmd){
     if (cmd){
-        setModeName.request.custom_mode = "OFFBOARD";
+        setModeName.request.custom_mode = "GUIDED";
     }
     else{
-        setModeName.request.custom_mode = "AUTO.LAND";
+        setModeName.request.custom_mode = "LAND";
     }
+
 	mavros_msgs::CommandBool arm_cmd;
     arm_cmd.request.value = cmd;
-	if	(currentState.mode != "OFFBOARD" ){
-        if( setModeClient.call(setModeName) &&
-            setModeName.response.mode_sent){
-            if (cmd)ROS_INFO("Offboard enabled");
-            else ROS_INFO("Auto Land enabled");
-        }
-	}
+    if( setModeClient.call(setModeName) &&
+        setModeName.response.mode_sent){
+        if (cmd)ROS_INFO("Offboard enabled");
+        else ROS_INFO("Auto Land enabled");
+    }
+    
     if(arming_client.call(arm_cmd) &&
         arm_cmd.response.success){
-        
-        if (cmd)ROS_INFO("Vehicle armed");
+        ros::spinOnce();
+        if (cmd){
+            ROS_INFO("Vehicle armed");
+            geometry_msgs::PoseStamped msg;
+            msg.pose.position.z = 1;
+            for (int i = 0; i < 100; i++){
+                ros::spinOnce();
+                ros::Duration(0.01).sleep();
+                takeoff_position_pub.publish(msg);
+            }
+            mavros_msgs::CommandTOL srv_takeoff;
+            srv_takeoff.request.altitude = 1;
+            if(takeoff_client.call(srv_takeoff)){
+                sleep(10);
+                ROS_INFO("takeoff sent %d", srv_takeoff.response.success);
+            }else{
+                ROS_ERROR("Failed Takeoff");
+            }
+        }
         else ROS_INFO("Vehicle disarmed");
     }
 }
+
 
 bool LedController::leader_armed(){
     return leader_is_arm;
 }
 
 bool LedController::local_armed(){
-    return currentState.armed;
+    return (int)currentState.armed;
 }
 
 void LedController::receive_message(){
-    bzero(buffer, 256);
-    string buf = "send message to me";
-    int n = write(sockfd,buf.data(),buf.size());
-    if (n < 0)error("ERROR writing to socket");
-    bzero(buffer,256);
-    //cout << "receive message" << endl;
-    n = read(sockfd,buffer,255);
-    //cout << buffer << endl;
-    if (n < 0)error("ERROR reading from socket");
-    buf = "";
-    int count = 0;
-    double *v[11] = {&leader_is_arm, &leader_position.x, &leader_position.y, &leader_position.z, 
-                    &leader_q.x, &leader_q.y, &leader_q.z, &leader_q.w,
-                    &leader_velocity.x, &leader_velocity.y, &leader_velocity.z};
-    for (int i = 0; i < 11;){
-        if (buffer[count] == ' '){
-            *v[i] = stod(buf);
-            buf = "";
-            i++;
-        }
-        buf += buffer[count];
-        count++;
+    try{
+        cout << sockfd << endl;
+        bzero(buffer, 256);
+        string buf = "send message to me";
+        int n = write(sockfd,buf.data(),buf.size());
+        if (n < 0)throw "ERROR writing to socket";
+        bzero(buffer,256);
+        n = read(sockfd,buffer,255);
+        if (n < 0)throw "ERROR reading from socket";
     }
-    
+    catch (...){
+        start_client();
+    }
+    try{
+        string buf = "";
+        int count = 0;
+        double *v[11] = {&leader_is_arm, &leader_position.x, &leader_position.y, &leader_position.z, 
+                        &leader_q.x, &leader_q.y, &leader_q.z, &leader_q.w,
+                        &leader_velocity.x, &leader_velocity.y, &leader_velocity.z};
+        for (int i = 0; i < 11;){
+            if (buffer[count] == ' '){
+                *v[i] = stod(buf);
+                buf = "";
+                i++;
+            }
+            buf += buffer[count];
+            count++;
+        }
+    }
+    catch(...){
+        ROS_INFO("Failed to process message");
+    }
 }

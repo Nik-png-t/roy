@@ -15,11 +15,19 @@
 #include <sys/types.h> 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <atomic>
+#include <thread>
+ 
+//std::atomic_int acnt;
+ 
+    
+
 
 
 using namespace std;
 
 class LeaderController{
+        vector<thread> pool;
         ros::NodeHandle n;
         ros::Subscriber local_position_sub, local_velocity_sub, stateSub;
         geometry_msgs::PoseStamped local_position;
@@ -27,8 +35,8 @@ class LeaderController{
         mavros_msgs::State	currentState;
         string name;
         // server
-        int sockfd, newsockfd, portno;
-        
+        int sockfd, portno;
+        vector<int> sock_clients;
         char* port;
         socklen_t clilen;
         char buffer[256];

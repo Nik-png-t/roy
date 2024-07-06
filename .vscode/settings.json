@@ -21,6 +21,8 @@
         "string_view": "cpp",
         "complex": "cpp",
         "string": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "ostream": "cpp"
     }
 }

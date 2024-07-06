@@ -10,6 +10,7 @@
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/WaypointList.h>
+#include <mavros_msgs/CommandTOL.h>
 #include <sensor_msgs/Imu.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,10 +51,9 @@ class LedController{
         ros::NodeHandle n;
         ros::Subscriber local_position_sub;
         ros::Subscriber		stateSub;
-        ros::ServiceClient 	arming_client;
-	ros::ServiceClient	setModeClient;
+        ros::ServiceClient 	arming_client, setModeClient, takeoff_client;
 	mavros_msgs::SetMode 	setModeName;
-        ros::Publisher  position_pub;
+        ros::Publisher  position_pub, takeoff_position_pub;
         geometry_msgs::Vector3 leader_velocity;
         geometry_msgs::Point leader_position, local_position;
         mavros_msgs::PositionTarget setPoint;
