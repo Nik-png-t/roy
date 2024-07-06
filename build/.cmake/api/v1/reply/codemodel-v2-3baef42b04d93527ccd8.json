@@ -33,8 +33,8 @@
 						10,
 						11,
 						12,
-						15,
-						16,
+						17,
+						18,
 						19,
 						20,
 						21,
@@ -66,11 +66,7 @@
 						47,
 						48,
 						49,
-						50,
-						51,
-						52,
-						53,
-						54
+						50
 					]
 				},
 				{
@@ -120,8 +116,8 @@
 					"source" : "/usr/src/googletest/googletest",
 					"targetIndexes" : 
 					[
-						17,
-						18
+						15,
+						16
 					]
 				}
 			],
@@ -153,8 +149,8 @@
 						10,
 						11,
 						12,
-						15,
-						16,
+						17,
+						18,
 						19,
 						20,
 						21,
@@ -186,11 +182,7 @@
 						47,
 						48,
 						49,
-						50,
-						51,
-						52,
-						53,
-						54
+						50
 					]
 				},
 				{
@@ -231,8 +223,8 @@
 					"parentIndex" : 2,
 					"targetIndexes" : 
 					[
-						17,
-						18
+						15,
+						16
 					]
 				}
 			],
@@ -344,20 +336,6 @@
 					"projectIndex" : 2
 				},
 				{
-					"directoryIndex" : 0,
-					"id" : "group_controller::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-group_controller-Debug-2c7b1f25b061a36400f1.json",
-					"name" : "group_controller",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "group_controller_node::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-group_controller_node-Debug-7f617a51eea559c4117d.json",
-					"name" : "group_controller_node",
-					"projectIndex" : 0
-				},
-				{
 					"directoryIndex" : 3,
 					"id" : "gtest::@b738d542747fbb7ea6e3",
 					"jsonFile" : "target-gtest-Debug-b3272e367c1ca60fbdd8.json",
@@ -374,29 +352,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "leader_controller::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-leader_controller-Debug-c762bd0bd4bb7b8d3115.json",
+					"jsonFile" : "target-leader_controller-Debug-d31880e9153ffd089dbc.json",
 					"name" : "leader_controller",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "leader_controller_node::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-leader_controller_node-Debug-0c8dc824ca49571b3048.json",
+					"jsonFile" : "target-leader_controller_node-Debug-9214be1a5d12e22bc625.json",
 					"name" : "leader_controller_node",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "led_controller::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-led_controller-Debug-4b7c797e094becc8ca57.json",
-					"name" : "led_controller",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "led_controller_node::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-led_controller_node-Debug-71899b666d6226fd3c99.json",
-					"name" : "led_controller_node",
 					"projectIndex" : 0
 				},
 				{

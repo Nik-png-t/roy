@@ -1,33 +1,13 @@
 [
 {
   "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/group_controller.dir/src/group/group_controller.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/group/group_controller.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/group/group_controller.cpp"
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/leader_controller.dir/src/leader_controller.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/leader_controller.cpp",
+  "file": "/home/nikita/catkin_ws/src/Roy/src/leader_controller.cpp"
 },
 {
   "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/leader/leader_controller.cpp"
-},
-{
-  "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/led_controller.dir/src/led/led_controller.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/led/led_controller.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/led/led_controller.cpp"
-},
-{
-  "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/group/group_controller_node.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/group/group_controller_node.cpp"
-},
-{
-  "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/leader/leader_controller_node.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/leader/leader_controller_node.cpp"
-},
-{
-  "directory": "/home/nikita/catkin_ws/src/Roy/build",
-  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/led/led_controller_node.cpp",
-  "file": "/home/nikita/catkin_ws/src/Roy/src/led/led_controller_node.cpp"
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"building_map\\\" -I/home/nikita/catkin_ws/src/Roy/build -I/home/nikita/catkin_ws/src/Roy -I/home/nikita/catkin_ws/src/Roy/header -I/home/nikita/catkin_ws/devel/.private/mavros_msgs/include -I/home/nikita/catkin_ws/src/mavros/mavros_msgs/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -g -std=gnu++2a -o CMakeFiles/leader_controller_node.dir/src/leader_controller_node.cpp.o -c /home/nikita/catkin_ws/src/Roy/src/leader_controller_node.cpp",
+  "file": "/home/nikita/catkin_ws/src/Roy/src/leader_controller_node.cpp"
 },
 {
   "directory": "/home/nikita/catkin_ws/src/Roy/build",
