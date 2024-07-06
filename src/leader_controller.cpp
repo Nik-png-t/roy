@@ -8,7 +8,7 @@ void error(const char *msg)
 
 
 
-LeaderController::LeaderController(ros::NodeHandle node, string name, char* port) : n(node), name(name), port(port){
+LeaderController::LeaderController(ros::NodeHandle node, char* port) : n(node), port(port){
     rosNodeInit();
     
     pool.emplace_back(&LeaderController::start_server, this);
@@ -21,9 +21,9 @@ LeaderController::~LeaderController(){
 }
 
 void LeaderController::rosNodeInit(){
-    local_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/uav"+name+"/mavros/local_position/velocity_local/", 10, &LeaderController::local_velocity_callback, this);
-    local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/uav"+name+"/mavros/local_position/pose", 10, &LeaderController::local_position_callback, this);
-	stateSub = n.subscribe<mavros_msgs::State>("/uav"+name+ "/mavros/state", 10, &LeaderController::uavStateCallback, this);
+    local_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/mavros/local_position/velocity_local/", 10, &LeaderController::local_velocity_callback, this);
+    local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/mavros/local_position/pose", 10, &LeaderController::local_position_callback, this);
+	stateSub = n.subscribe<mavros_msgs::State>("/mavros/state", 10, &LeaderController::uavStateCallback, this);
 }
 
 void LeaderController::uavStateCallback(const mavros_msgs::State::ConstPtr& msg){

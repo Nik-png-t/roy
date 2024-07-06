@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
     ros::init(argc, argv, "leader_controller_node");
 	ros::NodeHandle n;
 	ros::Rate rate(60);
-    LeaderController leader(n, "0", argv[1]);
+    LeaderController leader(n, argv[1]);
 
 	while(ros::ok())
 	{

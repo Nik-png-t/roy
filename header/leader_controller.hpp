@@ -33,7 +33,6 @@ class LeaderController{
         geometry_msgs::PoseStamped local_position;
         geometry_msgs::Vector3 local_velocity;
         mavros_msgs::State	currentState;
-        string name;
         // server
         int sockfd, portno;
         vector<int> sock_clients;
@@ -42,7 +41,7 @@ class LeaderController{
         char buffer[256];
         struct sockaddr_in  serv_addr,  cli_addr;
     public:
-        LeaderController(ros::NodeHandle node, string name_, char* port);
+        LeaderController(ros::NodeHandle node, char* port);
         ~LeaderController();
         void rosNodeInit();
         void update();

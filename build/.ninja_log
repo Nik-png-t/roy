@@ -1,10 +1,15 @@
 # ninja log v5
-9	2696	1717843721630552419	CMakeFiles/led_flight_controller_node.dir/src/led_flight_controller.cpp.o	cba5141b954d6ae
-11	2639	1717844248873919455	CMakeFiles/leader_controller.dir/src/leader_controller.cpp.o	86ae520c1c0a2b7e
-9	3450	1719500397492896647	CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o	4d0b6bd385f9635b
-7	2913	1719499967389504454	CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o	10f5987b5cfccadf
+9	2653	1717843706622574684	CMakeFiles/group_flight_lib.dir/src/group_flight.cpp.o	3910e6f5de7fe7ad
+3	852	1720269569893828749	build.ninja	fae1c1adf1e324d1
+4449	4487	1720098345145336719	libled_controller.a	1be9a5238d4e73f9
+2696	2859	1717843721794552177	led_flight_controller_node	da3930c2e9889f9e
+4487	4750	1720098345409336825	led_controller_node	ef3ef79c5a8d033c
 8	21	1717843718958556352	libgroup_flight_lib.a	b933ed41378841a2
 11	120	1719499210618651015	libgroup_controller.a	87c9e386ce57e0f3
+7	2913	1719499967389504454	CMakeFiles/leader_controller_node.dir/src/leader/leader_controller_node.cpp.o	10f5987b5cfccadf
+9	3450	1719500397492896647	CMakeFiles/leader_controller.dir/src/leader/leader_controller.cpp.o	4d0b6bd385f9635b
+11	2639	1717844248873919455	CMakeFiles/leader_controller.dir/src/leader_controller.cpp.o	86ae520c1c0a2b7e
+9	2696	1717843721630552419	CMakeFiles/led_flight_controller_node.dir/src/led_flight_controller.cpp.o	cba5141b954d6ae
 10	5995	1718372702776602369	CMakeFiles/group_controller.dir/src/group_controller.cpp.o	2a8925c7445e13ef
 120	552	1719499211062648936	group_controller_node	d3ddbf54c97ef46c
 3450	3484	1719500397528896558	libleader_controller.a	312785134f49e914
@@ -15,8 +20,8 @@
 1	2951	1717844224049945904	CMakeFiles/flight_controller_node.dir/src/flight_controller.cpp.o	1c26910e152de360
 9	4226	1719499201246694876	CMakeFiles/group_controller_node.dir/src/group/group_controller_node.cpp.o	611dd386227bb473
 9	3469	1719499200490698411	CMakeFiles/led_controller_node.dir/src/led/led_controller_node.cpp.o	7c0438bf25748682
-4487	4750	1720098345409336825	led_controller_node	ef3ef79c5a8d033c
-2696	2859	1717843721794552177	led_flight_controller_node	da3930c2e9889f9e
-4449	4487	1720098345145336719	libled_controller.a	1be9a5238d4e73f9
-3	852	1720261386897184215	build.ninja	fae1c1adf1e324d1
-9	2653	1717843706622574684	CMakeFiles/group_flight_lib.dir/src/group_flight.cpp.o	3910e6f5de7fe7ad
+3	861	1720269569893828749	build.ninja	fae1c1adf1e324d1
+2	3019	1720269572977919544	CMakeFiles/leader_controller_node.dir/src/leader_controller_node.cpp.o	54ee37a68855245b
+2	3940	1720269573893946730	CMakeFiles/leader_controller.dir/src/leader_controller.cpp.o	4cb78642814ff9a9
+3940	3999	1720269573957948629	libleader_controller.a	9cc78eef71ec4c5d
+3999	4221	1720269574177955178	leader_controller_node	a0f915cb7f0e8b2e
