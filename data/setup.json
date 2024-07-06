@@ -1,4 +1,4 @@
-{
+{   
     "k_angle_desired | удержание позиции" : 2,
     "k_angle_leader | реакция": 5,     
     "k_velocity_leader | удержание скорости полета": 0.8,

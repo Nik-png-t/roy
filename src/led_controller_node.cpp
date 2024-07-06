@@ -10,9 +10,8 @@ int main(int argc, char *argv[]){
     ros::init(argc, argv, "led_controller_node");
 	ros::NodeHandle n;
 	ros::Rate rate(60);
-	int number_of_drone = 1;
     ros::Time last_request = ros::Time::now();
-    LedController led = LedController(n, to_string(number_of_drone), argv[1], argv[2]);
+    LedController led = LedController(n, argv[1], argv[2]);
 
 	while(ros::ok())
 	{  

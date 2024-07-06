@@ -47,7 +47,6 @@ class LedController{
         double k_angle_desired, k_angle_leader, k_velocity_leader, pid_positionX_p, pid_positionX_i, pid_positionX_d,
                                 pid_rateX_p, pid_rateX_i, pid_rateX_d, pid_positionY_p, pid_positionY_i, pid_positionY_d,
                                 pid_rateY_p, pid_rateY_i, pid_rateY_d, pid_positionZ_p, pid_positionZ_i, pid_positionZ_d;
-        string name;
         double leader_is_arm;
         mavros_msgs::State   currentState;
         PID pidX, pidY, pidZ, pidpitch, pidroll;
@@ -68,13 +67,13 @@ class LedController{
         struct sockaddr_in serv_addr;
         struct hostent *server;
     public:
-        LedController(ros::NodeHandle node, string name, char* hostname, char* port);
+        LedController(ros::NodeHandle node, char* hostname, char* port);
         ~LedController();
         void local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
         void uavStateCallback(const mavros_msgs::State::ConstPtr& msg);
         bool leader_armed();
         bool local_armed();
-        bool arm(bool cmd);
+        void arm(bool cmd);
         void read_data();
         void update();
         void rosNodeInit();

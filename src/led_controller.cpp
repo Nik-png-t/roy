@@ -36,7 +36,7 @@ double PID::saturation(double inputVal){
 }
 
 
-LedController::LedController(ros::NodeHandle node, string name, char* hostname, char* port) : n(node), name(name), hostname(hostname), port(port){
+LedController::LedController(ros::NodeHandle node, char* hostname, char* port) : n(node), hostname(hostname), port(port){
     read_data();
     leader_is_arm = false;
     rosNodeInit();
@@ -60,13 +60,13 @@ void LedController::uavStateCallback(const mavros_msgs::State::ConstPtr& msg){
 }
 
 void LedController::rosNodeInit(){
-    local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/uav"+name+ "/mavros/local_position/pose", 1, &LedController::local_position_callback, this);
-    position_pub = n.advertise<mavros_msgs::PositionTarget>("/uav"+name+"/mavros/setpoint_raw/local", 1, this);
-    setModeClient = n.serviceClient<mavros_msgs::SetMode>("/uav"+name+ "/mavros/set_mode");
-	arming_client = n.serviceClient<mavros_msgs::CommandBool>("/uav"+name+ "/mavros/cmd/arming");
-	stateSub = n.subscribe<mavros_msgs::State>("/uav"+name+ "/mavros/state", 10, &LedController::uavStateCallback, this);
-    takeoff_client = n.serviceClient<mavros_msgs::CommandTOL>("/uav"+name+ "/mavros/cmd/takeoff");
-    takeoff_position_pub = n.advertise<geometry_msgs::PoseStamped>("/uav"+name+"/mavros/setpoint_position/local", 1, this);
+    local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/mavros/local_position/pose", 1, &LedController::local_position_callback, this);
+    position_pub = n.advertise<mavros_msgs::PositionTarget>("/mavros/setpoint_raw/local", 1, this);
+    setModeClient = n.serviceClient<mavros_msgs::SetMode>( "/mavros/set_mode");
+	arming_client = n.serviceClient<mavros_msgs::CommandBool>( "/mavros/cmd/arming");
+	stateSub = n.subscribe<mavros_msgs::State>( "/mavros/state", 10, &LedController::uavStateCallback, this);
+    takeoff_client = n.serviceClient<mavros_msgs::CommandTOL>( "/mavros/cmd/takeoff");
+    takeoff_position_pub = n.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_position/local", 1, this);
 }
 
 void LedController::local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
@@ -189,7 +189,7 @@ void LedController::stop_client(){
     close(sockfd);
 }
 
-bool LedController::arm(bool cmd){
+void LedController::arm(bool cmd){
     if (cmd){
         setModeName.request.custom_mode = "GUIDED";
     }
@@ -220,7 +220,7 @@ bool LedController::arm(bool cmd){
             mavros_msgs::CommandTOL srv_takeoff;
             srv_takeoff.request.altitude = 1;
             if(takeoff_client.call(srv_takeoff)){
-                sleep(10);
+                sleep(6);
                 ROS_INFO("takeoff sent %d", srv_takeoff.response.success);
             }else{
                 ROS_ERROR("Failed Takeoff");
@@ -281,22 +281,25 @@ void LedController::read_data(){
     ofstream newFile;
  
     //opening file using fstream
-    ifstream file("data/setup.json");
+    ifstream file("../data/setup.json");
  
     // check if there is any error is getting data from the json file
     if (!reader.parse(file, newValue)) {
         cout << reader.getFormattedErrorMessages();
         exit(1);
     }
-    string a[19] = {"k_angle_desired | удержание позиции","k_angle_leader | реакция",
+    Json::FastWriter fastWriter;
+    string a[18] = {"k_angle_desired | удержание позиции","k_angle_leader | реакция",
         "k_velocity_leader | удержание скорости полета","pid_positionX_p","pid_positionX_i",
         "pid_positionX_d","pid_rateX_p","pid_rateX_i","pid_rateX_d","pid_positionY_p","pid_positionY_i",
         "pid_positionY_d","pid_rateY_p","pid_rateY_i","pid_rateY_d","pid_positionZ_p","pid_positionZ_i",
         "pid_positionZ_d"};
-    double *b[19] = {&k_angle_desired, &k_angle_leader, &k_velocity_leader, &pid_positionX_p, &pid_positionX_i, &pid_positionX_d,
+    double *b[18] = {&k_angle_desired, &k_angle_leader, &k_velocity_leader, &pid_positionX_p, &pid_positionX_i, &pid_positionX_d,
                                 &pid_rateX_p, &pid_rateX_i, &pid_rateX_d, &pid_positionY_p, &pid_positionY_i, &pid_positionY_d,
                                 &pid_rateY_p, &pid_rateY_i, &pid_rateY_d, &pid_positionZ_p, &pid_positionZ_i, &pid_positionZ_d};
-    for (int i = 0; i < 19; i++){
-        *b[i] = stof(newValue[a[i]].toStyledString());
+    for (int i = 0; i < 18; i++){
+        cout << fastWriter.write((newValue[a[i]])) << endl;
+        *b[i] = stof(fastWriter.write((newValue[a[i]])));
     }
+    file.close();
 }
