@@ -1,0 +1,25 @@
+{
+    "k_angle_desired | удержание позиции" : 2,
+    "k_angle_leader | реакция": 5,     
+    "k_velocity_leader | удержание скорости полета": 0.8,
+
+    "pid_positionX_p": 0.95,
+    "pid_positionX_i": 0,
+    "pid_positionX_d": 0,
+
+    "pid_rateX_p": 0.6,
+    "pid_rateX_i": 0,
+    "pid_rateX_d": 0,
+
+    "pid_positionY_p": 0.95,
+    "pid_positionY_i": 0,
+    "pid_positionY_d": 0,
+
+    "pid_rateY_p": 0.6,
+    "pid_rateY_i": 0,
+    "pid_rateY_d": 0,
+
+    "pid_positionZ_p": 0.8,
+    "pid_positionZ_i": 0,
+    "pid_positionZ_d": 0
+}

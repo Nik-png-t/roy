@@ -1,0 +1,5 @@
+[requires]
+jsoncpp/3.13.2
+
+[generators]
+cmake

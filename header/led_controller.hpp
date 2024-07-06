@@ -19,6 +19,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
+#include "json/json.h"
+#include <fstream>
 
 
 
@@ -42,8 +44,9 @@ struct PID{
 
 
 class LedController{
-        static const double k_angle_desired, k_angle_leader, k_velocity_leader, pid_positionXY_p, pid_positionXY_i, pid_positionXY_d,
-                                pid_rateXY_p, pid_rateXY_i, pid_rateXY_d, pid_positionZ_p, pid_positionZ_i, pid_positionZ_d;
+        double k_angle_desired, k_angle_leader, k_velocity_leader, pid_positionX_p, pid_positionX_i, pid_positionX_d,
+                                pid_rateX_p, pid_rateX_i, pid_rateX_d, pid_positionY_p, pid_positionY_i, pid_positionY_d,
+                                pid_rateY_p, pid_rateY_i, pid_rateY_d, pid_positionZ_p, pid_positionZ_i, pid_positionZ_d;
         string name;
         double leader_is_arm;
         mavros_msgs::State   currentState;
@@ -72,6 +75,7 @@ class LedController{
         bool leader_armed();
         bool local_armed();
         bool arm(bool cmd);
+        void read_data();
         void update();
         void rosNodeInit();
         void setPointTypeInit();
