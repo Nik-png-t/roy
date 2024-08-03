@@ -9,7 +9,6 @@
 #include <mavros_msgs/State.h>
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/CommandBool.h>
-#include <mavros_msgs/WaypointList.h>
 #include <mavros_msgs/CommandTOL.h>
 #include <sensor_msgs/Imu.h>
 #include <stdio.h>
@@ -27,40 +26,21 @@
 
 using namespace std;
 
-struct PID{
-	PID();
-	PID(double k_p, double k_i, double k_d, double controlLimit);
-	void setDesiredPosition(double desiredPosition_);
-	double pid(double currentPosition, double dt);
-	double saturation(double inputVal);
-	private:
-        double error;
-        double desiredPosition;
-        double error_past;
-        double integral;
-        double k_p, k_i, k_d, controlLimit;
-};
-
-
 
 class LedController{
-        double k_angle_desired, k_angle_leader, k_velocity_leader, pid_positionX_p, pid_positionX_i, pid_positionX_d,
-                                pid_rateX_p, pid_rateX_i, pid_rateX_d, pid_positionY_p, pid_positionY_i, pid_positionY_d,
-                                pid_rateY_p, pid_rateY_i, pid_rateY_d, pid_positionZ_p, pid_positionZ_i, pid_positionZ_d;
-        double leader_is_arm;
-        mavros_msgs::State   currentState;
-        PID pidX, pidY, pidZ, pidpitch, pidroll;
         ros::NodeHandle n;
-        ros::Subscriber local_position_sub;
-        ros::Subscriber		stateSub;
+
+        ros::Subscriber local_position_sub, local_velocity_sub, local_acceleration_sub, stateSub;
         ros::ServiceClient 	arming_client, setModeClient, takeoff_client;
-	mavros_msgs::SetMode 	setModeName;
         ros::Publisher  position_pub, takeoff_position_pub;
-        geometry_msgs::Vector3 leader_velocity;
-        geometry_msgs::Point leader_position, local_position;
+
+        mavros_msgs::State   currentState;
+	mavros_msgs::SetMode 	setModeName;
+        geometry_msgs::Vector3 leader_velocity, local_velocity, leader_acceleration, local_acceleration;
+        geometry_msgs::Point leader_position, local_position, error_position, error_velocity, error_acceleration;
+        
         mavros_msgs::PositionTarget setPoint;
-        geometry_msgs::Quaternion local_q, leader_q;
-        geometry_msgs::Point quaternionToAngle(geometry_msgs::Quaternion& q);
+        double k_position_leader, k_acceleration_leader, k_velocity_leader, leader_is_arm, leader_yaw;
         // client
         char* hostname, *port, buffer[256];
         int sockfd, portno;
@@ -69,16 +49,23 @@ class LedController{
     public:
         LedController(ros::NodeHandle node, char* hostname, char* port);
         ~LedController();
+
         void local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg);
+        void local_acceleration_callback(const sensor_msgs::Imu::ConstPtr& msg);
+        void local_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg);
+
         void uavStateCallback(const mavros_msgs::State::ConstPtr& msg);
-        bool leader_armed();
-        bool local_armed();
+        
         void arm(bool cmd);
         void read_data();
         void update();
         void rosNodeInit();
         void setPointTypeInit();
+
         void stop_client();
         void start_client();
         void receive_message();
+
+        bool leader_armed(){return leader_is_arm;}
+        bool local_armed(){return (int)currentState.armed;}
 };
