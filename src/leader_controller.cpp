@@ -22,6 +22,7 @@ LeaderController::~LeaderController(){
 
 void LeaderController::rosNodeInit(){
     local_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/mavros/local_position/velocity_local/", 10, &LeaderController::local_velocity_callback, this);
+    local_acceleration_sub = n.subscribe<sensor_msgs::Imu>("/mavros/imu/data", 1, &LeaderController::local_acceleration_callback, this);
     local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/mavros/local_position/pose", 10, &LeaderController::local_position_callback, this);
 	stateSub = n.subscribe<mavros_msgs::State>("/mavros/state", 10, &LeaderController::uavStateCallback, this);
 }
@@ -31,18 +32,26 @@ void LeaderController::uavStateCallback(const mavros_msgs::State::ConstPtr& msg)
 }
 
 void LeaderController::local_position_callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
-    local_position = *msg;
+    local_position = msg->pose.position;
+    local_q = msg->pose.orientation;
 }
 
 void LeaderController::local_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg){
     local_velocity = msg->twist.linear;
 }
 
+void LeaderController::local_acceleration_callback(const sensor_msgs::Imu::ConstPtr& msg){
+    local_acceleration = msg->linear_acceleration;
+}
+
 void LeaderController::update(){
+    double siny_cosp = 2 * (local_q.w * local_q.z + local_q.x * local_q.y);
+    double cosy_cosp = 1 - 2 * (local_q.y * local_q.y + local_q.z * local_q.z);
+    double yaw = atan2(siny_cosp, cosy_cosp);
+
     string msg = "";
-    double v[11] = {currentState.armed, local_position.pose.position.x, local_position.pose.position.y, local_position.pose.position.z,
-     local_position.pose.orientation.x, local_position.pose.orientation.y, local_position.pose.orientation.z, local_position.pose.orientation.w,
-     local_velocity.x, local_velocity.y, local_velocity.z};
+    double v[11] = {currentState.armed, local_position.x, local_position.y, local_position.z,
+     local_velocity.x, local_velocity.y, local_velocity.z, local_acceleration.x, local_acceleration.y, local_acceleration.z, yaw};
     for (int i = 0; i < 11; i++){
         msg += to_string(v[i]) + " ";
     }
