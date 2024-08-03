@@ -23,6 +23,7 @@
         "string": "cpp",
         "*.tcc": "cpp",
         "deque": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "chrono": "cpp"
     }
 }

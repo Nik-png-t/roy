@@ -46,10 +46,12 @@ LedGroupFlight::LedGroupFlight(ros::NodeHandle node, string name, geometry_msgs:
 
 void LedGroupFlight::rosNodeInit(){
     leader_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/uav0/mavros/local_position/velocity_local/", 1, &LedGroupFlight::leader_velocity_callback, this);
+    local_velocity_sub = n.subscribe<geometry_msgs::TwistStamped>("/uav"+name+"/mavros/local_position/velocity_local/", 1, &LedGroupFlight::local_velocity_callback, this);
     leader_position_sub = n.subscribe<geometry_msgs::PoseStamped>("leader_position", 1, &LedGroupFlight::leader_position_callback, this);
     local_position_sub = n.subscribe<geometry_msgs::PoseStamped>("/uav"+name+ "/mavros/local_position/pose", 1, &LedGroupFlight::local_position_callback, this);
     position_pub = n.advertise<mavros_msgs::PositionTarget>("/uav"+name+"/mavros/setpoint_raw/local", 1, this);
     leader_imu_sub = n.subscribe<sensor_msgs::Imu>("/uav0/mavros/imu/data", 1, &LedGroupFlight::leader_imu_callback, this);
+    local_imu_sub = n.subscribe<sensor_msgs::Imu>("/uav"+name+"/mavros/imu/data", 1, &LedGroupFlight::local_imu_callback, this);
     leader_mission_sub = n.subscribe<mavros_msgs::WaypointList>("/uav0/mavros/mission/waypoints", 1, &LedGroupFlight::mission_callback, this);
 }
 
@@ -62,8 +64,16 @@ void LedGroupFlight::leader_imu_callback(const sensor_msgs::Imu::ConstPtr& msg){
     leader_accel = msg->linear_acceleration;
 }
 
+void LedGroupFlight::local_imu_callback(const sensor_msgs::Imu::ConstPtr& msg){
+    local_accel = msg->linear_acceleration;
+}
+
 void LedGroupFlight::leader_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg){
     leader_velocity = msg->twist.linear;
+}
+
+void LedGroupFlight::local_velocity_callback(const geometry_msgs::TwistStamped::ConstPtr& msg){
+    local_velocity = msg->twist.linear;
 }
 
 void LedGroupFlight::mission_callback(const mavros_msgs::WaypointList::ConstPtr& msg){
@@ -134,9 +144,32 @@ void LedGroupFlight::update(double dt){
 
 	// set
     //cout << velocityX << " " << (leader_velocity.x*cos(yaw) + leader_velocity.y*sin(yaw)) << endl;
-	setPoint.velocity.x = velocityX + leader_velocity.x*k_velocity_leader;
-	setPoint.velocity.y = velocityY + leader_velocity.y*k_velocity_leader;
-    setPoint.velocity.z = velocityZ + leader_velocity.z*k_velocity_leader;
+    geometry_msgs::Point error;
+
+    error.x = (leader_velocity.x-local_velocity.x);
+    error.y = (leader_velocity.y-local_velocity.y);
+    error.z = (leader_velocity.z-local_velocity.z);
+
+    setPoint.velocity.x =  leader_velocity.x + error.x*3;
+	setPoint.velocity.y =  leader_velocity.y + error.y*3;
+    setPoint.velocity.z =  leader_velocity.z + pow(error.z, 2)*(error.z/abs(error.z));
+    
+    error.x = (leader_position.x-local_position.x);
+    error.y = (leader_position.y-local_position.y);
+    error.z = (leader_position.z-local_position.z);
+
+    setPoint.position.x = leader_position.x + error.x*5;
+    setPoint.position.y = leader_position.y + error.y*5;
+    setPoint.position.z = leader_position.z + pow(error.z, 2)*(error.z/abs(error.z));
+
+    error.x = (leader_accel.x - local_accel.x);
+    error.y = (leader_accel.y - local_accel.y);
+    error.z = (leader_accel.z - local_accel.z);
+
+    setPoint.acceleration_or_force.x = leader_accel.x + error.x*4;
+    setPoint.acceleration_or_force.y = leader_accel.y + error.y*4;
+    setPoint.acceleration_or_force.z = 0;//leader_accel.z;
+    cout << "updated" << endl;
     setPoint.yaw = leader_angle.z;
     position_pub.publish(setPoint);
 
@@ -166,13 +199,16 @@ void 	LedGroupFlight::setPointTypeInit()
 	// задаем тип используемого нами сообщения для желаемых параметров управления аппаратом
 	// приведенная ниже конфигурация соответствует управлению линейной скоростью ЛА
 	// и угловой скоростью аппарата в канале рыскания(yaw)
-	unsigned int setpointTypeMask = mavros_msgs::PositionTarget::IGNORE_AFX  +
-									mavros_msgs::PositionTarget::IGNORE_AFY  +
-									mavros_msgs::PositionTarget::IGNORE_AFZ  +
-									mavros_msgs::PositionTarget::IGNORE_PX +
-									mavros_msgs::PositionTarget::IGNORE_PY +
-									mavros_msgs::PositionTarget::IGNORE_PZ +
-                                    mavros_msgs::PositionTarget::IGNORE_YAW_RATE;
+	unsigned int setpointTypeMask = mavros_msgs::PositionTarget::IGNORE_YAW_RATE \
+                                     + mavros_msgs::PositionTarget::IGNORE_VX \
+                                     + mavros_msgs::PositionTarget::IGNORE_VY \
+                                     + mavros_msgs::PositionTarget::IGNORE_VZ \
+                                    + mavros_msgs::PositionTarget::IGNORE_AFX \
+                                    + mavros_msgs::PositionTarget::IGNORE_AFY \
+                                    + mavros_msgs::PositionTarget::IGNORE_AFZ ;
+                                    //+ mavros_msgs::PositionTarget::IGNORE_PX \
+                                    + mavros_msgs::PositionTarget::IGNORE_PY \
+                                    + mavros_msgs::PositionTarget::IGNORE_PZ;
 									//mavros_msgs::PositionTarget::IGNORE_YAW;//AF, P, V
 	// при помощи конфигурации вышеприведенным образом переменной setpointTypeMask
 	// можно настроить управление аппаратом посредством передачи(положения аппарата и углового положения в канале рыскания, )

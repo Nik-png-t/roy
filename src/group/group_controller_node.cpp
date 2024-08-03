@@ -11,19 +11,22 @@ int main(int argc, char **argv){
     geometry_msgs::Point a, b, c, d;
     b.x = 2;c.y = 2; d.x = 2;d.y = 2;
     LeaderGroupFlight leader(n, "0", a);
-    vector<geometry_msgs::Point> led_start_positions = {b,c,d};
-    vector<LedGroupFlight*> leds;
-    for (int i = 0; i < number_of_leds; i++){
-        leds.push_back(new LedGroupFlight(n, to_string(i+1), led_start_positions[i]));
-    }
+    //vector<geometry_msgs::Point> led_start_positions = {b,c,d};
+    //vector<LedGroupFlight*> leds;
+    LedGroupFlight led = LedGroupFlight(n, to_string(1), b);
+    //for (int i = 0; i < number_of_leds; i++){
+    //    leds.push_back(new );
+    //}
 
 	while(ros::ok())
 	{
-        for (int i = 0; i < number_of_leds; i++){
-            (*leds[i]).update(stack_time);
-        }
+        //for (int i = 0; i < number_of_leds; i++){
+        //    (*leds[i]).update(stack_time);
+        //}
+        led.update(stack_time);
 		ros::spinOnce();
-        rate.sleep();
+        //rate.sleep();
 	}
+    
     return 0;
 }
